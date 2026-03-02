@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Products – Westham Bakery | Sydenham, Durban</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* NOTICE BANNER */
+    .enquiry-banner {
+      background: var(--brown); padding: 1rem 4rem;
+      display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+      border-bottom: 1px solid rgba(201,150,42,0.25); flex-wrap: wrap;
+    }
+    .enquiry-banner p { font-size: 0.78rem; color: #c4a070; }
+    .enquiry-banner a { color: var(--gold-light); text-decoration: none; }
+    .enquiry-banner a:hover { text-decoration: underline; }
+    .enquiry-banner .lbl { font-size: 0.6rem; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-right: 0.5rem; }
+
+    /* FILTER BAR */
+    .filter-bar {
+      background: var(--warm-white); border-bottom: 1px solid var(--border);
+      padding: 1.1rem 4rem; display: flex; align-items: center; gap: 0.7rem; flex-wrap: wrap;
+      position: sticky; top: 62px; z-index: 100;
+    }
+    .filter-lbl { font-size: 0.62rem; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); margin-right: 0.3rem; }
+    .fbtn {
+      padding: 0.42rem 1.1rem; border: 1px solid var(--border);
+      background: transparent; color: var(--text-light);
+      font-family: 'Josefin Sans', sans-serif; font-size: 0.66rem; letter-spacing: 2px; text-transform: uppercase;
+      cursor: pointer; transition: all 0.25s;
+    }
+    .fbtn:hover, .fbtn.active { background: var(--brown-dark); color: var(--gold-light); border-color: var(--brown-dark); }
+
+    /* CATEGORY */
+    .cat-section { padding: 3.5rem 4rem 2rem; max-width: 1240px; margin: 0 auto; }
+    .cat-header {
+      display: flex; align-items: baseline; gap: 1.2rem;
+      border-bottom: 1px solid var(--border); padding-bottom: 1rem; margin-bottom: 2rem;
+    }
+    .cat-header h2 { color: var(--brown-dark); font-size: 1.9rem; }
+    .cat-header span { font-size: 0.62rem; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); }
+
+    /* GRID */
+    .items-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 1.4rem; }
+    .item-card {
+      background: var(--warm-white); border: 1px solid var(--border); overflow: hidden;
+      transition: transform 0.4s cubic-bezier(.22,.61,.36,1), box-shadow 0.4s; cursor: default;
+    }
+    .item-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(30,13,4,0.11); }
+    .item-thumb {
+      aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden; transition: transform 0.5s;
+      background: var(--parchment); /* Neutral fallback */
+    }
+    .item-thumb img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.5s;
+    }
+    .item-card:hover .item-thumb img { transform: scale(1.07); }
+    
+    /* REMOVED: All gradient classes (.g1 through .g8) - no longer needed */
+
+    .item-body { padding: 1.1rem 1.2rem 1.3rem; }
+    .item-body h3 { font-size: 1rem; color: var(--brown-dark); margin-bottom: 0.25rem; }
+    .item-body p { font-size: 0.76rem; color: var(--text-light); line-height: 1.7; margin-bottom: 0.8rem; }
+    .item-price {
+      font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; font-weight: 600; color: var(--caramel);
+      display: flex; align-items: center; gap: 0.6rem;
+    }
+    .item-price .tag { background: var(--parchment); border: 1px solid var(--border); color: var(--muted); font-size: 0.58rem; letter-spacing: 1.5px; text-transform: uppercase; padding: 0.18rem 0.5rem; font-family: 'Josefin Sans', sans-serif; font-weight: 300; }
+
+    /* ENQUIRY STRIP */
+    .enquiry-strip {
+      background: linear-gradient(130deg, var(--brown) 0%, var(--brown-mid) 100%);
+      margin: 0 4rem 3rem; padding: 3rem 3rem;
+      display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 2rem;
+      border: 1px solid rgba(201,150,42,0.25); position: relative; overflow: hidden;
+    }
+    .enquiry-strip::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at right, rgba(201,150,42,0.1) 0%, transparent 60%); }
+    .enquiry-strip h2 { color: var(--gold-light); font-size: 1.7rem; margin-bottom: 0.5rem; position: relative; }
+    .enquiry-strip p  { color: #b09070; font-size: 0.84rem; line-height: 1.8; position: relative; }
+    .enquiry-deco { font-size: 5rem; opacity: 0.45; animation: float 4s ease-in-out infinite; }
+
+    @media (max-width: 1100px) { .items-grid { grid-template-columns: repeat(3,1fr); } }
+    @media (max-width: 850px)  { .items-grid { grid-template-columns: repeat(2,1fr); } .cat-section { padding-left: 1.8rem; padding-right: 1.8rem; } .filter-bar, .enquiry-banner { padding-left: 1.8rem; padding-right: 1.8rem; } .enquiry-strip { margin: 0 1.8rem 2rem; } }
+    @media (max-width: 560px)  { .items-grid { grid-template-columns: 1fr; } .enquiry-strip { grid-template-columns: 1fr; } .enquiry-deco { display: none; } }
+  </style>
+</head>
+<body>
+
+<nav id="mainNav">
+  <a href="index.html" class="nav-brand">
+    <span class="nav-brand-main">Westham Bakery</span>
+    <span class="nav-brand-sub">Sydenham · Durban · Est. Daily</span>
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="products.html" class="active">Products</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="team.html">Team</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <button class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-deco"></div>
+  <span class="eyebrow reveal">Our Menu</span>
+  <h1 class="reveal d1">Products &amp; Baked Goods</h1>
+  <p class="reveal d2">Browse our range — freshly baked every day. To order or enquire, simply get in touch with us.</p>
+</div>
+
+<!-- ENQUIRY NOTICE -->
+<div class="enquiry-banner">
+  <p><span class="lbl">How to Order</span> See something you like? <a href="contact.html">Contact us</a> or call <a href="tel:+27310019905">031 001 9905</a> to place your order. We're open 24 hours!</p>
+  <a href="contact.html" class="btn btn-gold" style="white-space:nowrap;padding:0.5rem 1.4rem;font-size:0.63rem;">Enquire Now</a>
+</div>
+
+<!-- FILTER BAR -->
+<div class="filter-bar">
+  <span class="filter-lbl">Browse:</span>
+  <button class="fbtn active" onclick="filterCat('all',this)">All</button>
+  <button class="fbtn" onclick="filterCat('cakes',this)">Cakes</button>
+  <button class="fbtn" onclick="filterCat('breads',this)">Breads</button>
+  <button class="fbtn" onclick="filterCat('pies',this)">Pies</button>
+  <button class="fbtn" onclick="filterCat('cupcakes',this)">Cupcakes &amp; Muffins</button>
+  <button class="fbtn" onclick="filterCat('cookies',this)">Cookies &amp; Tarts</button>
+</div>
+
+<!-- ═══ CAKES ═══ -->
+<div class="cat-section" data-cat="cakes">
+  <div class="cat-header reveal">
+    <h2>Celebration Cakes</h2>
+    <span>Custom orders welcome · Contact us to discuss</span>
+  </div>
+  <div class="items-grid">
+    <div class="item-card reveal d1">
+      <div class="item-thumb">
+        <img src="Photos/birthday cake.jpg" alt="Birthday Cake">
+      </div>
+      <div class="item-body">
+        <h3>Birthday Cake</h3>
+        <p>Custom decorated layered cake. Personalised with names, themes, and colours of your choice.</p>
+        <div class="item-price">From R180 <span class="tag">Custom Order</span></div>
+      </div>
+    </div>
+    <div class="item-card reveal d2">
+      <div class="item-thumb">
+        <img src="Photos/wedding cake.jpg" alt="Wedding Cake">
+      </div>
+      <div class="item-body">
+        <h3>Wedding Cake</h3>
+        <p>Elegant multi-tiered wedding cakes crafted to your exact specifications and style preferences.</p>
+        <div class="item-price">From R850 <span class="tag">Custom Order</span></div>
+      </div>
+    </div>
+    <div class="item-card reveal d3">
+      <div class="item-thumb">
+        <img src="Photos/graduation cake.jpg" alt="Celebration Cake">
+      </div>
+      <div class="item-body">
+        <h3>Celebration Cake</h3>
+        <p>Perfect for baby showers, graduations, anniversaries, and all milestone events.</p>
+        <div class="item-price">From R220 <span class="tag">Custom Order</span></div>
+      </div>
+    </div>
+    <div class="item-card reveal d4">
+      <div class="item-thumb">
+        <img src="Photos/chocolate fudge cake.jpg" alt="Chocolate Fudge Cake">
+      </div>
+      <div class="item-body">
+        <h3>Chocolate Fudge Cake</h3>
+        <p>Rich, decadent layers of chocolate sponge with creamy fudge frosting — a crowd favourite.</p>
+        <div class="item-price">R95 / slice <span class="tag">Daily</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ BREADS ═══ -->
+<div class="cat-section" data-cat="breads">
+  <div class="cat-header reveal">
+    <h2>Artisan Breads</h2>
+    <span>Baked fresh every single morning</span>
+  </div>
+  <div class="items-grid">
+    <div class="item-card reveal d1">
+      <div class="item-thumb">
+        <img src="Photos/Fresh White Loaf.jpg" alt="White Loaf">
+      </div>
+      <div class="item-body">
+        <h3>White Loaf</h3>
+        <p>Classic white bread — soft, light, and perfect for sandwiches or toast.</p>
+        <div class="item-price">R22 <span class="tag">Daily</span></div>
+      </div>
+    </div>
+    <div class="item-card reveal d2">
+      <div class="item-thumb">
+        <img src="Photos/Wholewheat Loaf.jpg" alt="Wholewheat Loaf">
+      </div>
+      <div class="item-body">
+        <h3>Wholewheat Loaf</h3>
+        <p>Nutty, hearty wholegrain loaf packed with fibre and flavour.</p>
+        <div class="item-price">R26 <span class="tag">Daily</span></div>
+      </div>
+    </div>
+    <div class="item-card reveal d3">
+      <div class="item-thumb">
+        <img src="Photos/French Baguette.jpg" alt="French Baguette">
+      </div>
+      <div class="item-body">
+        <h3>French Baguette</h3>
+        <p>Crispy crust, airy interior — a perfect French classic baked fresh every morning.</p>
+        <div class="item-price">R18 <span class="tag">Daily</span></div>
+      </div>
+    </div>
+    <div class="item-card reveal d4">
+      <div class="item-thumb">
+        <img src="Photos/dinner rolls.jpg" alt="Dinner Rolls">
+      </div>
+      <div class="item-body">
+        <h3>Dinner Rolls (6-pack)</h3>
+        <p>Soft, pillowy dinner rolls — perfect for family meals, braais, and gatherings.</p>
+        <div class="item-price">R28 <span class="tag">Daily</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PIES ═══ -->
+<div class="cat-section" data-cat="pies">
+  <div class="cat-header reveal">
+    <h2>Pies &amp; Pastries</h2>
+    <span>Savoury &amp; sweet options daily</span>
+  </div>
+  <div class="items-grid">
+    <div class="item-card reveal d1">
+      <div class="item-thumb">
+        <img src="Photos/chicken and mushroom pie.jpg" alt="Chicken & Mushroom Pie">
+      </div>
+      <div class="item-body">
+        <h3>Chicken &amp; Mushroom Pie</h3>
+        <p>Golden, flaky pastry filled with a creamy chicken and mushroom filling.</p>
+        <div class="item-price">R38 <span class="tag">Savoury</span></div>
+      </div>
+    </div>
+    <div class="item-card reveal d2">
+      <div class="item-thumb">
+        <img src="Photos/beef pie.jpg" alt="Mince Beef Pie">
+      </div>
+      <div class="item-body">
+        <h3>Mince Beef Pie</h3>
+        <p>Rich, hearty beef mince in a perfectly seasoned sauce, wrapped in buttery pastry.</p>
+        <div class="item-price">R35 <span class="tag">Savoury</span></div>
+      </div>
+    </div>
+    <div class="item-card reveal d3">
+      <div class="item-thumb">
+        <img src="Photos/Butter Croissant.jpg" alt="Butter Croissant">
+      </div>
+      <div class="item-body">
+        <h3>Butter Croissant</h3>
+        <p>Flaky, buttery croissants made fresh every morning. Enjoy plain or with jam.</p>
+        <div class="item-price">R15 <span class="tag">Daily</span></div>
+      </div>
+    </div>
+    <div class="item-card reveal d4">
+      <div class="item-thumb">
+        <img src="Photos/apple turnover.jpg" alt="Apple Turnover">
+      </div>
+      <div class="item-body">
+        <h3>Apple Turnover</h3>
+        <p>Spiced apple filling wrapped in flaky puff pastry, dusted with icing sugar.</p>
+        <div class="item-price">R22 <span class="tag">Sweet</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ CUPCAKES ═══ -->
+<div class="cat-section" data-cat="cupcakes">
+  <div class="cat-header reveal">
+    <h2>Cupcakes &amp; Muffins</h2>
+    <span>Individually portioned fresh treats</span>
+  </div>
+  <div class="items-grid">
+    <div class="item-card reveal d1">
+      <div class="item-thumb">
+        <img src="Photos/Vanilla Cupcakes.jpg" alt="Vanilla Cupcake">
+      </div>
+      <div class="item-body">
+        <h3>Vanilla Cupcake</h3>
+        <p>Light vanilla sponge topped with fluffy buttercream frosting in a range of colours.</p>
+        <div class="item-price">R18 <span class="tag">Daily</span></div>
+      </div>
+    </div>
+    <div class="item-card reveal d2">
+      <div class="item-thumb">
+        <img src="Photos/choc chip muffin.jpg" alt="Choc Chip Muffin">
+      </div>
+      <div class="item-body">
+        <h3>Choc Chip Muffin</h3>
+        <p>Moist, fluffy muffin generously studded with dark chocolate chips. A breakfast favourite.</p>
+        <div class="item-price">R16 <span class="tag">Daily</span></div>
+      </div>
+    </div>
+    <div class="item-card reveal d3">
+      <div class="item-thumb">
+        <img src="Photos/blueberry muffin.jpg" alt="Blueberry Muffin">
+      </div>
+      <div class="item-body">
+        <h3>Blueberry Muffin</h3>
+        <p>Bursting with fresh blueberries and topped with a golden crumble streusel.</p>
+        <div class="item-price">R18 <span class="tag">Daily</span></div>
+      </div>
+    </div>
+    <div class="item-card reveal d4">
+      <div class="item-thumb">
+        <img src="Photos/red velvet cupcake.jpg" alt="Red Velvet Cupcake">
+      </div>
+      <div class="item-body">
+        <h3>Red Velvet Cupcake</h3>
+        <p>Vibrant red velvet sponge with rich cream cheese frosting — always a showstopper.</p>
+        <div class="item-price">R22 <span class="tag">Daily</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ COOKIES ═══ -->
+<div class="cat-section" data-cat="cookies" style="padding-bottom:3.5rem;">
+  <div class="cat-header reveal">
+    <h2>Cookies &amp; Tarts</h2>
+    <span>Sweet bites baked daily</span>
+  </div>
+  <div class="items-grid">
+    <div class="item-card reveal d1">
+      <div class="item-thumb">
+        <img src="Photos/choc chip cookie.jpg" alt="Choc Chip Cookie">
+      </div>
+      <div class="item-body">
+        <h3>Choc Chip Cookie</h3>
+        <p>Crispy on the edge, soft in the centre — loaded with chocolate chips.</p>
+        <div class="item-price">R10 <span class="tag">Daily</span></div>
+      </div>
+    </div>
+    <div class="item-card reveal d2">
+      <div class="item-thumb">
+        <img src="Photos/penut cookies.jpg" alt="Peanut Butter Cookie">
+      </div>
+      <div class="item-body">
+        <h3>Peanut Butter Cookie</h3>
+        <p>Rich, nutty cookies with that classic peanut butter crumble texture.</p>
+        <div class="item-price">R10 <span class="tag">Daily</span></div>
+      </div>
+    </div>
+    <div class="item-card reveal d3">
+      <div class="item-thumb">
+        <img src="Photos/berry custard tart.jpg" alt="Berry Custard Tart">
+      </div>
+      <div class="item-body">
+        <h3>Berry Custard Tart</h3>
+        <p>Buttery pastry shell filled with smooth vanilla custard and fresh berry topping.</p>
+        <div class="item-price">R28 <span class="tag">Daily</span></div>
+      </div>
+    </div>
+    <div class="item-card reveal d4">
+      <div class="item-thumb">
+        <img src="Photos/Lemon Meringue Tart.jpg" alt="Lemon Meringue Tart">
+      </div>
+      <div class="item-body">
+        <h3>Lemon Meringue Tart</h3>
+        <p>Tangy lemon curd in a crisp pastry case, topped with pillowy toasted meringue.</p>
+        <div class="item-price">R32 <span class="tag">Daily</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ENQUIRY STRIP -->
+<div class="enquiry-strip reveal">
+  <div>
+    <span class="eyebrow" style="color:var(--gold);">Interested in Something?</span>
+    <h2>Get in Touch to Order</h2>
+    <p>We don't have an online shop — simply call us, WhatsApp, or fill in our contact form and we'll sort you out. Custom cakes require advance notice.</p>
+    <div style="display:flex;gap:1rem;margin-top:1.5rem;flex-wrap:wrap;position:relative;">
+      <a href="contact.html" class="btn btn-gold">Contact Form</a>
+      <a href="tel:+27310019905" class="btn btn-outline"> 031 001 9905</a>
+      <a href="https://wa.me/27310019905  " target="_blank" rel="noopener" class="btn btn-dark">WhatsApp ↗</a>
+    </div>
+  </div>
+  <div class="enquiry-deco"></div>
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <h3>Westham Bakery</h3>
+      <p>Serving Sydenham &amp; the greater Durban community with freshly baked goods, custom cakes, and heartfelt service — 24 hours a day, every day.</p>
+      <div class="social-links">
+        <a href="https://facebook.com  " target="_blank" rel="noopener" title="Facebook">f</a>
+        <a href="https://instagram.com  " target="_blank" rel="noopener" title="Instagram">◎</a>
+        <a href="https://twitter.com  " target="_blank" rel="noopener" title="X/Twitter">✕</a>
+        <a href="https://wa.me/27310019905  " target="_blank" rel="noopener" title="WhatsApp">◈</a>
+      </div>
+    </div>
+    <div class="footer-col"><h4>Navigate</h4><ul>
+      <li><a href="index.html">Home</a></li><li><a href="about.html">About Us</a></li>
+      <li><a href="products.html">Products</a></li><li><a href="gallery.html">Gallery</a></li>
+      <li><a href="team.html">Our Team</a></li><li><a href="contact.html">Contact</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Categories</h4><ul>
+      <li><a href="products.html">Celebration Cakes</a></li><li><a href="products.html">Artisan Breads</a></li>
+      <li><a href="products.html">Pies &amp; Pastries</a></li><li><a href="products.html">Cupcakes &amp; Muffins</a></li>
+      <li><a href="products.html">Cookies &amp; Tarts</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>To Order</h4><ul>
+      <li><a href="contact.html">Send Enquiry</a></li>
+      <li><a href="tel:+27310019905">031 001 9905</a></li>
+      <li><a href="https://wa.me/27310019905  " target="_blank" rel="noopener">WhatsApp Us</a></li>
+      <li><a href="https://westhambakery,com " target="_blank" rel="noopener">westhambakery.com</a></li>
+    </ul></div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Westham Bakery, Sydenham. All rights reserved.</span>
+    <span>588 Randles Road, Sydenham Berea, Durban 4091</span>
+  </div>
+</footer>
+
+<script>
+  const nav = document.getElementById('mainNav');
+  window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60));
+  const toggle = document.getElementById('navToggle');
+  const links = document.getElementById('navLinks');
+  toggle.addEventListener('click', () => { toggle.classList.toggle('open'); links.classList.toggle('open'); });
+
+  // Category filter
+  function filterCat(cat, btn) {
+    document.querySelectorAll('.fbtn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.cat-section').forEach(s => {
+      s.style.display = (cat === 'all' || s.dataset.cat === cat) ? '' : 'none';
+    });
+  }
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal,.reveal-left,.reveal-right');
+  const obs = new IntersectionObserver(e => e.forEach(x => x.isIntersecting && x.target.classList.add('visible')), { threshold: 0.1 });
+  reveals.forEach(r => obs.observe(r));
+</script>
+</body>
+</html>

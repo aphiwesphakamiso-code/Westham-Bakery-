@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Team – Westham Bakery | Sydenham, Durban</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .team-grid-section { padding: 3rem 4rem 5rem; }
+    .team-grid { display: grid; grid-template-columns: repeat(5,1fr); gap: 1.8rem; max-width: 1200px; margin: 0 auto; }
+
+    .member-card {
+      background: var(--warm-white); border: 1px solid var(--border);
+      overflow: hidden; text-align: center;
+      transition: transform 0.4s cubic-bezier(.22,.61,.36,1), box-shadow 0.4s; cursor: default;
+    }
+    .member-card:hover { transform: translateY(-7px); box-shadow: 0 24px 60px rgba(30,13,4,0.13); }
+    .member-avatar {
+      aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden; transition: transform 0.5s;
+      background: var(--parchment); /* Neutral fallback background */
+    }
+    .member-card:hover .member-avatar { transform: scale(1.04); }
+
+    /* REMOVED: All the .av1, .av2, etc. gradient classes - no longer needed */
+
+    /* Shimmer effect - now applies to images too */
+    .member-avatar::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.2) 50%, transparent 70%);
+      background-size: 200% 100%; background-position: 200% center;
+      transition: background-position 0.6s;
+      pointer-events: none; /* Let clicks pass through to image */
+      z-index: 2;
+    }
+    .member-card:hover .member-avatar::after { background-position: -200% center; }
+
+    /* NEW: Style for actual photos */
+    .member-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover; /* This makes the image cover the square without distortion */
+      object-position: center top; /* Adjust if you need to focus on faces */
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+    }
+
+    .member-body { padding: 1.2rem 1rem 1.5rem; }
+    .member-name { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; color: var(--brown-dark); margin-bottom: 0.2rem; font-weight: 600; }
+    .member-role { font-size: 0.62rem; letter-spacing: 2.5px; text-transform: uppercase; color: var(--caramel); display: block; margin-bottom: 0.7rem; }
+    .member-stnum {
+      display: inline-block;
+      background: var(--parchment); border: 1px solid var(--border);
+      color: var(--muted); font-size: 0.6rem; letter-spacing: 1.8px; text-transform: uppercase;
+      padding: 0.22rem 0.7rem; font-family: 'Josefin Sans', sans-serif;
+    }
+
+    /* EDIT NOTICE - Updated */
+    .edit-notice {
+      max-width: 860px; margin: 0 auto 2.5rem;
+      background: rgba(201,150,42,0.08); border: 1px solid rgba(201,150,42,0.3);
+      padding: 1.5rem 2rem; text-align: center;
+    }
+    .edit-notice p { color: var(--text-light); font-size: 0.8rem; line-height: 1.8; }
+    .edit-notice strong { color: var(--caramel); }
+    .edit-notice code { background: var(--parchment); padding: 0.1rem 0.4rem; font-size: 0.78rem; color: var(--brown-mid); }
+
+    /* PROJECT SECTION */
+    .project-section { background: var(--brown-dark); padding: 5rem 4rem; text-align: center; }
+    .project-section h2 { color: var(--gold-light); margin-bottom: 1rem; }
+    .project-section p { color: var(--muted); max-width: 580px; margin: 0 auto 2rem; line-height: 1.9; }
+
+    @media (max-width: 1100px) { .team-grid { grid-template-columns: repeat(4,1fr); } }
+    @media (max-width: 860px)  { .team-grid { grid-template-columns: repeat(3,1fr); } .team-grid-section { padding: 2.5rem 1.8rem 4rem; } }
+    @media (max-width: 600px)  { .team-grid { grid-template-columns: repeat(2,1fr); } }
+    @media (max-width: 380px)  { .team-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+<nav id="mainNav">
+  <a href="index.html" class="nav-brand">
+    <span class="nav-brand-main">Westham Bakery</span>
+    <span class="nav-brand-sub">Sydenham · Durban · Est. Daily</span>
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="products.html">Products</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="team.html" class="active">Team</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <button class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-deco">👥</div>
+  <span class="eyebrow reveal">The People Behind This</span>
+  <h1 class="reveal d1">Meet Our Team</h1>
+  <p class="reveal d2">10 dedicated students who researched, designed, and built Westham Bakery's digital presence.</p>
+</div>
+
+<section class="section" style="padding-bottom:1.5rem;background:var(--warm-white);">
+  <div class="section-center reveal">
+    <span class="eyebrow">Project Team</span>
+    <h2>The Minds Behind the Website</h2>
+    <div class="divider"></div>
+    <p>This website was created as a collaborative group project representing the hard work, creativity, and dedication of 10 students.</p>
+  </div>
+</section>
+
+<div class="team-grid-section">
+ 
+
+  <div class="team-grid">
+
+    <!-- Member 1 -->
+    <div class="member-card reveal d1">
+      <div class="member-avatar">
+        <img src="Photos/Sphakamiso.jpeg" alt="Aphiwe Mntambo">
+      </div>
+      <div class="member-body">
+        <div class="member-name">Aphiwe Mntambo</div>
+        <span class="member-role">Contributor</span>
+        <div class="member-stnum">ST No: 22472765</div>
+      </div>
+    </div>
+
+    <!-- Member 2 -->
+    <div class="member-card reveal d2">
+      <div class="member-avatar">
+        <img src="Photos/nqubeko nkomo student.jpg" alt="Member Name 2">
+      </div>
+      <div class="member-body">
+        <div class="member-name">Nqubeko Bright Komo</div>
+        <span class="member-role">Contributor</span>
+        <div class="member-stnum">ST No: 25063051</div>
+      </div>
+    </div>
+
+    <!-- Member 3 -->
+    <div class="member-card reveal d3">
+      <div class="member-avatar">
+        <img src="Photos/Liyolata.jpg" alt="Member Name 3">
+      </div>
+      <div class="member-body">
+        <div class="member-name">Liyolata Maki</div>
+        <span class="member-role">Contributor</span>
+        <div class="member-stnum">ST No: 25075784</div>
+      </div>
+    </div>
+
+    <!-- Member 4 -->
+    <div class="member-card reveal d4">
+      <div class="member-avatar">
+        <img src="Photos/PHOTO MEMBER.jpg" alt="Member Name 4">
+      </div>
+      <div class="member-body">
+        <div class="member-name"> Siyabonga Madlala</div>
+        <span class="member-role">Contributor</span>
+        <div class="member-stnum">ST No: 22463232</div>
+      </div>
+    </div>
+
+    <!-- Member 5 -->
+    <div class="member-card reveal d5">
+      <div class="member-avatar">
+        <img src="Photos/sokhulu member.jpg" alt="Member Name 5">
+      </div>
+      <div class="member-body">
+        <div class="member-name">Sokhulu Nosipho</div>
+        <span class="member-role">Contributor</span>
+        <div class="member-stnum">ST No: 22041935</div>
+      </div>
+    </div>
+
+    <!-- Member 6 -->
+    <div class="member-card reveal d1">
+      <div class="member-avatar">
+        <img src="Photos/photomember 3.jpg" alt="Member Name 6">
+      </div>
+      <div class="member-body">
+        <div class="member-name">Msawenkosi Amahle Nene</div>
+        <span class="member-role">Contributor</span>
+        <div class="member-stnum">ST No: 22433151</div>
+      </div>
+    </div>
+
+    <!-- Member 7 -->
+    <div class="member-card reveal d2">
+      <div class="member-avatar">
+        <img src="Photos/langelihle member.jpg" alt="Member Name 7">
+      </div>
+      <div class="member-body">
+        <div class="member-name">Langelihle Nduli</div>
+        <span class="member-role">Contributor</span>
+        <div class="member-stnum">ST No: 22383749</div>
+      </div>
+    </div>
+
+    <!-- Member 8 -->
+    <div class="member-card reveal d3">
+      <div class="member-avatar">
+        <img src="Photos/member 4 image.jpg" alt="Member Name 8">
+      </div>
+      <div class="member-body">
+        <div class="member-name">Okuhle Malishe</div>
+        <span class="member-role">Contributor</span>
+        <div class="member-stnum">ST No: 25017454</div>
+      </div>
+    </div>
+
+    <!-- Member 9 -->
+    <div class="member-card reveal d4">
+      <div class="member-avatar">
+        <img src="Photos/member ii.jpg" alt="Member Name 9">
+      </div>
+      <div class="member-body">
+        <div class="member-name">Sphephelo Shozi</div>
+        <span class="member-role">Contributor</span>
+        <div class="member-stnum">ST No: 22479595</div>
+      </div>
+    </div>
+
+    <!-- Member 10 -->
+    <div class="member-card reveal d5">
+      <div class="member-avatar">
+        <img src="Photos/member project.jpg" alt="Member Name 10">
+      </div>
+      <div class="member-body">
+        <div class="member-name">Nonjabulo Khanyile</div>
+        <span class="member-role">Contributor</span>
+        <div class="member-stnum">ST No: 22216054</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <h3>Westham Bakery</h3>
+      <p>Serving Sydenham &amp; the greater Durban community with freshly baked goods, custom cakes, and heartfelt service — 24 hours a day, every day.</p>
+      <div class="social-links">
+        <a href="https://facebook.com  " target="_blank" rel="noopener" title="Facebook">f</a>
+        <a href="https://instagram.com  " target="_blank" rel="noopener" title="Instagram">◎</a>
+        <a href="https://twitter.com  " target="_blank" rel="noopener" title="X/Twitter">✕</a>
+        <a href="https://wa.me/27310019905  " target="_blank" rel="noopener" title="WhatsApp">◈</a>
+      </div>
+    </div>
+    <div class="footer-col"><h4>Navigate</h4><ul>
+      <li><a href="index.html">Home</a></li><li><a href="about.html">About Us</a></li>
+      <li><a href="products.html">Products</a></li><li><a href="gallery.html">Gallery</a></li>
+      <li><a href="team.html">Our Team</a></li><li><a href="contact.html">Contact</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Products</h4><ul>
+      <li><a href="products.html">Celebration Cakes</a></li><li><a href="products.html">Artisan Breads</a></li>
+      <li><a href="products.html">Pies &amp; Pastries</a></li><li><a href="products.html">Cupcakes &amp; Muffins</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Contact</h4><ul>
+      <li><a href="tel:+27310019905">031 001 9905</a></li>
+      <li><a href="https://westhambakery,com " target="_blank" rel="noopener">westhambakery.com</a></li>
+      <li><a href="https://maps.google.com/?q=Westham+Bakery+Sydenham  " target="_blank" rel="noopener">Get Directions</a></li>
+      <li><a href="https://wa.me/27310019905  " target="_blank" rel="noopener">WhatsApp Us</a></li>
+    </ul></div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Westham Bakery, Sydenham. All rights reserved.</span>
+    <span>588 Randles Road, Sydenham Berea, Durban 4091</span>
+  </div>
+</footer>
+
+<script>
+  const nav = document.getElementById('mainNav');
+  window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60));
+  const toggle = document.getElementById('navToggle');
+  const links = document.getElementById('navLinks');
+  toggle.addEventListener('click', () => { toggle.classList.toggle('open'); links.classList.toggle('open'); });
+  const reveals = document.querySelectorAll('.reveal,.reveal-left,.reveal-right');
+  const obs = new IntersectionObserver(e => e.forEach(x => x.isIntersecting && x.target.classList.add('visible')), { threshold: 0.1 });
+  reveals.forEach(r => obs.observe(r));
+</script>
+</body>
+</html>

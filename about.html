@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us – Westham Bakery | Sydenham, Durban</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .story-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; max-width: 1100px; margin: 0 auto; }
+    .story-img {
+      aspect-ratio: 3/4;
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+      background: var(--parchment); /* Neutral fallback */
+    }
+    .story-img img {
+      width: 100%; height: 100%; object-fit: cover;
+      position: absolute; inset: 0;
+    }
+    .story-img::after {
+      content: '';
+      position: absolute; inset: 0;
+      border: 2px solid rgba(201,150,42,0.3);
+      margin: 1.5rem;
+      pointer-events: none;
+      z-index: 2;
+    }
+    .story-text h2 { color: var(--brown-dark); margin-bottom: 1rem; }
+    .story-text p { color: var(--text-light); line-height: 1.9; margin-bottom: 1.2rem; }
+
+    .values-section { background: var(--warm-white); }
+    .values-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; max-width: 1100px; margin: 0 auto; }
+    .value-card { padding: 2.5rem; border: 1px solid var(--border); text-align: center; background: var(--cream); transition: transform 0.3s, box-shadow 0.3s; }
+    .value-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(75,35,10,0.1); }
+    .value-icon { 
+      width: 80px; height: 80px; 
+      margin: 0 auto 1rem; 
+      border-radius: 50%;
+      overflow: hidden;
+      background: var(--parchment);
+    }
+    .value-icon img {
+      width: 100%; height: 100%; object-fit: cover;
+    }
+    .value-card h3 { color: var(--brown-dark); margin-bottom: 0.6rem; font-size: 1.3rem; }
+    .value-card p { color: var(--text-light); font-size: 0.85rem; line-height: 1.8; }
+
+    .timeline-section { background: var(--brown-dark); padding: 5rem 4rem; }
+    .timeline-section .section-center h2 { color: var(--gold-light); }
+    .timeline-section .section-center .eyebrow { color: var(--gold); }
+    .timeline-section .section-center p { color: var(--muted); }
+    .timeline { max-width: 700px; margin: 0 auto; position: relative; }
+    .timeline::before { content: ''; position: absolute; left: 20px; top: 0; bottom: 0; width: 1px; background: linear-gradient(to bottom, var(--gold), transparent); }
+    .timeline-item { padding-left: 60px; margin-bottom: 2.5rem; position: relative; }
+    .timeline-dot {
+      position: absolute; left: 12px; top: 4px;
+      width: 16px; height: 16px; border-radius: 50%;
+      background: var(--gold); border: 2px solid var(--brown-dark);
+      box-shadow: 0 0 0 3px rgba(201,150,42,0.3);
+    }
+    .timeline-year { font-size: 0.65rem; letter-spacing: 3px; text-transform: uppercase; color: var(--gold); margin-bottom: 0.3rem; }
+    .timeline-item h3 { color: var(--gold-light); font-size: 1.2rem; margin-bottom: 0.4rem; }
+    .timeline-item p { color: #937a58; font-size: 0.85rem; line-height: 1.8; }
+
+    .stats-bar { background: var(--gold); display: grid; grid-template-columns: repeat(4,1fr); }
+    .stat-item { padding: 2.5rem; text-align: center; border-right: 1px solid rgba(0,0,0,0.1); }
+    .stat-item:last-child { border-right: none; }
+    .stat-num { font-family: 'Cormorant Garamond', serif; font-size: 3rem; font-weight: 700; color: var(--brown-dark); line-height: 1; }
+    .stat-label { font-size: 0.65rem; letter-spacing: 2px; text-transform: uppercase; color: var(--brown); margin-top: 0.3rem; }
+
+    @media (max-width: 900px) {
+      .story-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .values-grid { grid-template-columns: 1fr 1fr; }
+      .stats-bar { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 600px) {
+      .values-grid, .stats-bar { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-brand">
+    <span class="nav-brand-main">Westham Bakery</span>
+    <span class="nav-brand-sub">Sydenham · Durban</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html" class="active">About</a></li>
+    <li><a href="products.html">Products</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="team.html">Team</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="page-hero">
+  <span class="eyebrow">Our Story</span>
+  <h1>About Westham Bakery</h1>
+  <p>From a small community bakery to a Durban institution — discover the heart behind every loaf and cake.</p>
+</div>
+
+<section class="section">
+  <div class="story-grid">
+    <div class="story-img">
+      <img src="Photos/Westham_Bakery_Blog_Durban_Grows_Sweeter_with_New_Westham_Bakery_Stores_image_2.webp" alt="Westham Bakery Storefront">
+    </div>
+    <div class="story-text fade-up">
+      <span class="eyebrow">Who We Are</span>
+      <h2>Baked with Heart in Sydenham</h2>
+      <div class="divider" style="margin:1rem 0;"></div>
+      <p>Westham Bakery has been a cornerstone of the Sydenham Berea community in Durban. Located at 588 Randles Road, we have been dedicated to bringing joy to every table through freshly baked goods made with the finest ingredients.</p>
+      <p>What started as a passion for baking has grown into a beloved local institution. Our team of dedicated bakers, decorators, and front-of-house staff work tirelessly — around the clock — to ensure that whether you walk in at midday or midnight, you're greeted with freshness and warmth.</p>
+      <p>We believe in three things above all: quality ingredients, exceptional service, and the kind of freshness that can only come from baking every single day. Our customers aren't just customers — they're community, family, and friends.</p>
+      <a href="team.html" class="btn btn-gold" style="margin-top:0.5rem;">Meet Our Team</a>
+    </div>
+  </div>
+</section>
+
+<div class="stats-bar">
+  <div class="stat-item"><div class="stat-num">4.3★</div><div class="stat-label">Google Rating</div></div>
+  <div class="stat-item"><div class="stat-num">173</div><div class="stat-label">Reviews</div></div>
+  <div class="stat-item"><div class="stat-num">24/7</div><div class="stat-label">Open Always</div></div>
+  <div class="stat-item"><div class="stat-num">100%</div><div class="stat-label">Fresh Daily</div></div>
+</div>
+
+<section class="section values-section">
+  <div class="section-center">
+    <span class="eyebrow">What We Stand For</span>
+    <h2>Our Core Values</h2>
+    <div class="divider"></div>
+    <p>Every decision we make comes back to these principles.</p>
+  </div>
+  <div class="values-grid">
+    <div class="value-card fade-up delay-1">
+    
+      <h3>Quality First</h3>
+      <p>We source only the finest flour, dairy, and fresh produce. No shortcuts — ever. Every product that leaves our kitchen meets our high standards before it reaches you.</p>
+    </div>
+    <div class="value-card fade-up delay-2">
+     
+      <h3>Community Love</h3>
+      <p>We're not just a bakery — we're a part of Sydenham. We celebrate your birthdays, comfort your Sundays, and fuel your mornings. The community is our inspiration.</p>
+    </div>
+    <div class="value-card fade-up delay-3">
+     
+      <h3>Hygiene &amp; Freshness</h3>
+      <p>Our kitchen maintains the highest standards of cleanliness. Our customers consistently praise our hygiene, and we take that responsibility seriously every single day.</p>
+    </div>
+    <div class="value-card fade-up delay-1">
+     
+      <h3>Exceptional Service</h3>
+      <p>Our staff are trained to assist, advise, and go the extra mile — like decorating your birthday cake at no extra charge because your smile is reward enough.</p>
+    </div>
+    <div class="value-card fade-up delay-2">
+    
+      <h3>Always Open</h3>
+      <p>Life doesn't stop at 5pm, and neither do we. Operating 24 hours means you always have a warm, fresh option available — no matter the hour.</p>
+    </div>
+    <div class="value-card fade-up delay-3">
+     
+      <h3>Creative Craftsmanship</h3>
+      <p>From custom-designed celebration cakes to artisan sourdough, we bring artistry to everything we bake. Food should be beautiful as much as it is delicious.</p>
+    </div>
+  </div>
+</section>
+
+<section class="timeline-section">
+  <div class="section-center" style="margin-bottom:3rem;">
+    <span class="eyebrow">Our Journey</span>
+    <h2>Milestones &amp; Moments</h2>
+    <div class="divider"></div>
+  </div>
+  <div class="timeline">
+    <div class="timeline-item fade-up">
+      <div class="timeline-dot"></div>
+      <div class="timeline-year">The Beginning</div>
+      <h3>Westham Bakery Opens</h3>
+      <p>Westham Bakery opens its doors at 588 Randles Road, Sydenham, with a vision to bring quality baking to the Durban community.</p>
+    </div>
+    <div class="timeline-item fade-up delay-1">
+      <div class="timeline-dot"></div>
+      <div class="timeline-year">Growth</div>
+      <h3>24-Hour Trading Introduced</h3>
+      <p>Responding to growing demand from the community, Westham introduces round-the-clock trading — cementing its place as Durban's most reliable bakery.</p>
+    </div>
+    <div class="timeline-item fade-up delay-2">
+      <div class="timeline-dot"></div>
+      <div class="timeline-year">Expansion</div>
+      <h3>Custom Cake Studio Launched</h3>
+      <p>We launch our custom cake ordering service, allowing customers to commission bespoke celebration cakes for every occasion.</p>
+    </div>
+    <div class="timeline-item fade-up delay-3">
+      <div class="timeline-dot"></div>
+      <div class="timeline-year">Today</div>
+      <h3>173 Reviews &amp; Still Growing</h3>
+      <p>With over 173 glowing Google reviews and a 4.3-star rating, Westham Bakery continues to serve Durban with pride, passion, and freshness every day.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="text-align:center;background:var(--parchment);">
+  <span class="eyebrow">Come Visit Us</span>
+  <h2 style="color:var(--brown-dark);">Find Us in Sydenham</h2>
+  <div class="divider"></div>
+  <p style="color:var(--text-light);max-width:500px;margin:0 auto 2rem;">We'd love to see you in person. Pop in anytime — we're always open!</p>
+  <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+    <a href="contact.html" class="btn btn-gold">Contact Us</a>
+    <a href="https://maps.google.com/?q=588+Randles+Road+Sydenham+Durban  " target="_blank" rel="noopener" class="btn btn-dark">Get Directions</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <h3>Westham Bakery</h3>
+      <p>Serving Sydenham &amp; the greater Durban community with freshly baked goods, custom cakes, and heartfelt service — 24 hours a day, every day.</p>
+      <div class="social-links" style="margin-top:1.2rem;">
+        <a href="https://facebook.com  " target="_blank" rel="noopener" title="Facebook">f</a>
+        <a href="https://instagram.com  " target="_blank" rel="noopener" title="Instagram">📷</a>
+        <a href="https://twitter.com  " target="_blank" rel="noopener" title="X / Twitter">𝕏</a>
+        <a href="https://wa.me/27310019905  " target="_blank" rel="noopener" title="WhatsApp">💬</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Pages</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="products.html">Products</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="team.html">Our Team</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Products</h4>
+      <ul>
+        <li><a href="products.html">Celebration Cakes</a></li>
+        <li><a href="products.html">Artisan Breads</a></li>
+        <li><a href="products.html">Pies &amp; Pastries</a></li>
+        <li><a href="products.html">Muffins &amp; Cupcakes</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Visit Us</h4>
+      <ul>
+        <li><a href="https://maps.google.com/?q=Westham+Bakery+Sydenham+Durban  " target="_blank" rel="noopener">Get Directions</a></li>
+        <li><a href="tel:+27310019905">031 001 9905</a></li>
+        <li><a href="https://westhambakery.com  " target="_blank" rel="noopener">westhambakery.com</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Westham Bakery, Sydenham. All rights reserved.</span>
+    <span>588 Randles Road, Sydenham Berea, Durban 4091</span>
+  </div>
+</footer>
+
+</body>
+</html>

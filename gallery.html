@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gallery – Westham Bakery | Sydenham, Durban</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .gallery-filter {
+      background: var(--warm-white); border-bottom: 1px solid var(--border);
+      padding: 1.1rem 4rem; display: flex; align-items: center; gap: 0.7rem; flex-wrap: wrap;
+      position: sticky; top: 62px; z-index: 100;
+    }
+    .filter-lbl { font-size: 0.62rem; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); margin-right: 0.3rem; }
+    .fbtn { padding: 0.42rem 1.1rem; border: 1px solid var(--border); background: transparent; color: var(--text-light); font-family: 'Josefin Sans', sans-serif; font-size: 0.66rem; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; transition: all 0.25s; }
+    .fbtn:hover, .fbtn.active { background: var(--brown-dark); color: var(--gold-light); border-color: var(--brown-dark); }
+
+    /* FEATURED GRID */
+    .featured-section { background: var(--warm-white); padding: 3.5rem 4rem; }
+    .featured-grid {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr 1fr;
+      grid-template-rows: auto auto;
+      gap: 1rem; max-width: 1100px; margin: 0 auto;
+    }
+    .feat {
+      overflow: hidden; border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      cursor: default; position: relative;
+      transition: transform 0.4s cubic-bezier(.22,.61,.36,1), box-shadow 0.4s;
+      background: var(--parchment); /* Neutral fallback */
+    }
+    .feat:hover { transform: scale(1.02); box-shadow: 0 16px 40px rgba(30,13,4,0.15); z-index: 2; }
+    .feat img { 
+      width: 100%; height: 100%; object-fit: cover; 
+      transition: transform 0.5s; 
+    }
+    .feat:hover img { transform: scale(1.1); }
+    
+    /* Aspect ratios for featured items */
+    .feat-main { grid-row: 1 / 3; aspect-ratio: 2/3; }
+    .feat2 { aspect-ratio: 3/2; }
+    .feat3 { aspect-ratio: 3/2; }
+    .feat4 { aspect-ratio: 3/2; }
+    .feat5 { aspect-ratio: 3/2; }
+
+    /* REMOVED: All gradient background classes (.feat-main, .feat2-5 backgrounds) */
+
+    /* MASONRY GALLERY */
+    .gallery-section { padding: 3.5rem 4rem 5rem; }
+    .masonry {
+      columns: 4; column-gap: 1rem;
+      max-width: 1200px; margin: 0 auto;
+    }
+    .g-item {
+      break-inside: avoid; margin-bottom: 1rem;
+      overflow: hidden; border: 1px solid var(--border);
+      cursor: default; position: relative;
+      transition: transform 0.4s cubic-bezier(.22,.61,.36,1), box-shadow 0.4s;
+      background: var(--parchment); /* Neutral fallback */
+    }
+    .g-item:hover { transform: scale(1.025); box-shadow: 0 16px 45px rgba(30,13,4,0.18); z-index: 2; }
+    .g-thumb {
+      width: 100%; display: block;
+      overflow: hidden;
+      transition: transform 0.5s;
+    }
+    .g-thumb img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      transition: transform 0.5s;
+    }
+    .g-item:hover .g-thumb img { transform: scale(1.06); }
+    .g-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(20,8,2,0.82) 0%, transparent 55%);
+      display: flex; align-items: flex-end; padding: 1rem;
+      opacity: 0; transition: opacity 0.35s;
+      pointer-events: none;
+    }
+    .g-item:hover .g-overlay { opacity: 1; }
+    .g-overlay h4 { font-family: 'Cormorant Garamond', serif; color: var(--cream); font-size: 0.95rem; margin-bottom: 0.1rem; }
+    .g-overlay span { font-size: 0.58rem; letter-spacing: 2px; text-transform: uppercase; color: var(--gold-light); }
+
+    /* Heights - now applied to images via inline styles or kept for container sizing */
+    .h-sq { aspect-ratio: 1; }
+    .h-p  { aspect-ratio: 3/4; }
+    .h-pp { aspect-ratio: 2/3; }
+    .h-l  { aspect-ratio: 4/3; }
+    .h-w  { aspect-ratio: 3/2; }
+
+   
+
+    @media (max-width: 1100px) { .masonry { columns: 3; } .featured-grid { grid-template-columns: 1fr 1fr; } .feat-main { grid-row: 1; } }
+    @media (max-width: 750px)  { .masonry { columns: 2; } .gallery-section, .featured-section, .gallery-filter { padding-left: 1.8rem; padding-right: 1.8rem; } }
+    @media (max-width: 450px)  { .masonry { columns: 1; } .featured-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+<nav id="mainNav">
+  <a href="index.html" class="nav-brand">
+    <span class="nav-brand-main">Westham Bakery</span>
+    <span class="nav-brand-sub">Sydenham · Durban · Est. Daily</span>
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="products.html">Products</a></li>
+    <li><a href="gallery.html" class="active">Gallery</a></li>
+    <li><a href="team.html">Team</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <button class="nav-toggle" id="navToggle"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-deco">🎂</div>
+  <span class="eyebrow reveal">Visual Journey</span>
+  <h1 class="reveal d1">Our Gallery</h1>
+  <p class="reveal d2">A showcase of our most beautiful creations — cakes, breads, pastries, and the bakery.</p>
+</div>
+
+<div class="gallery-filter">
+  <span class="filter-lbl">View:</span>
+  <button class="fbtn active">All Photos</button>
+  <button class="fbtn">Cakes</button>
+  <button class="fbtn">Breads</button>
+  <button class="fbtn">Pastries</button>
+  <button class="fbtn">Cupcakes</button>
+</div>
+
+<!-- FEATURED -->
+<section class="featured-section">
+  <div class="section-center reveal">
+    <span class="eyebrow">Staff Picks</span>
+    <h2>Featured Creations</h2>
+    <div class="divider"></div>
+  </div>
+  <div class="featured-grid">
+    <!-- Featured 1 - Large -->
+    <div class="feat feat-main reveal">
+      <img src="Photos/Custorm Birthday cake.jpg" alt="Custom Birthday Cake">
+    </div>
+    <!-- Featured 2 -->
+    <div class="feat feat2 reveal d1">
+      <img src="Photos/Fresh White Loaf.jpg" alt="Fresh White Loaf">
+    </div>
+    <!-- Featured 3 -->
+    <div class="feat feat3 reveal d2">
+      <img src="Photos/Butter Croissant.jpg" alt="Butter Croissant">
+    </div>
+    <!-- Featured 4 -->
+    <div class="feat feat4 reveal d3">
+      <img src="Photos/Vanilla Cupcakes.jpg" alt="Vanilla Cupcakes">
+    </div>
+    <!-- Featured 5 -->
+    <div class="feat feat5 reveal d4">
+      <img src="Photos/Chicken pie.jpg" alt="Chicken Pie">
+    </div>
+  </div>
+</section>
+
+<!-- MASONRY GALLERY -->
+<section class="gallery-section">
+  <div class="section-center reveal">
+    <span class="eyebrow">Photo Gallery</span>
+    <h2>All Photos</h2>
+    <div class="divider"></div>
+    <p>Hover over any photo to see more details.</p>
+  </div>
+  <div class="masonry">
+
+    <!-- Item 1 -->
+    <div class="g-item reveal">
+      <div class="g-thumb h-p">
+        <img src="Photos/Custorm Birthday cake.jpg" alt="Custom Birthday Cake">
+      </div>
+      <div class="g-overlay"><div><h4>Custom Birthday Cake</h4><span>Celebration Cakes</span></div></div>
+    </div>
+
+    <!-- Item 2 -->
+    <div class="g-item reveal d1">
+      <div class="g-thumb h-l">
+        <img src="Photos/bread.jpg" alt="Fresh White Loaf">
+      </div>
+      <div class="g-overlay"><div><h4>Fresh White Loaf</h4><span>Artisan Breads</span></div></div>
+    </div>
+
+    <!-- Item 3 -->
+    <div class="g-item reveal d2">
+      <div class="g-thumb h-pp">
+        <img src="Photos/Butter Croissant.jpg" alt="Butter Croissant">
+      </div>
+      <div class="g-overlay"><div><h4>Butter Croissant</h4><span>Pastries</span></div></div>
+    </div>
+
+    <!-- Item 4 -->
+    <div class="g-item reveal d3">
+      <div class="g-thumb h-sq">
+        <img src="Photos/Vanilla Cupcakes.jpg" alt="Vanilla Cupcakes">
+      </div>
+      <div class="g-overlay"><div><h4>Vanilla Cupcakes</h4><span>Cupcakes</span></div></div>
+    </div>
+
+    <!-- Item 5 -->
+    <div class="g-item reveal">
+      <div class="g-thumb h-pp">
+        <img src="Photos/wedding cake.jpg" alt="Tiered Wedding Cake">
+      </div>
+      <div class="g-overlay"><div><h4>Tiered Wedding Cake</h4><span>Celebration Cakes</span></div></div>
+    </div>
+
+    <!-- Item 6 -->
+    <div class="g-item reveal d1">
+      <div class="g-thumb h-p">
+        <img src="Photos/Chicken pie.jpg" alt="Chicken Pie">
+      </div>
+      <div class="g-overlay"><div><h4>Chicken Pie</h4><span>Savoury Pies</span></div></div>
+    </div>
+
+    <!-- Item 7 -->
+    <div class="g-item reveal d2">
+      <div class="g-thumb h-sq">
+        <img src="Photos/dinner rolls.jpg" alt="Dinner Rolls">
+      </div>
+      <div class="g-overlay"><div><h4>Dinner Rolls</h4><span>Artisan Breads</span></div></div>
+    </div>
+
+    <!-- Item 8 -->
+    <div class="g-item reveal d3">
+      <div class="g-thumb h-l">
+        <img src="Photos/chocolate fudge cake.jpg" alt="Chocolate Fudge Cake">
+      </div>
+      <div class="g-overlay"><div><h4>Chocolate Fudge Cake</h4><span>Celebration Cakes</span></div></div>
+    </div>
+
+    <!-- Item 9 -->
+    <div class="g-item reveal">
+      <div class="g-thumb h-w">
+        <img src="Photos/blueberry muffin.jpg" alt="Blueberry Muffin">
+      </div>
+      <div class="g-overlay"><div><h4>Blueberry Muffin</h4><span>Muffins</span></div></div>
+    </div>
+
+    <!-- Item 10 -->
+    <div class="g-item reveal d1">
+      <div class="g-thumb h-p">
+        <img src="Photos/apple turnover.jpg" alt="Apple Turnover">
+      </div>
+      <div class="g-overlay"><div><h4>Apple Turnover</h4><span>Sweet Pastries</span></div></div>
+    </div>
+
+    <!-- Item 11 -->
+    <div class="g-item reveal d2">
+      <div class="g-thumb h-pp">
+        <img src="Photos/red velvet cupcake.jpg" alt="Red Velvet Cupcake">
+      </div>
+      <div class="g-overlay"><div><h4>Red Velvet Cupcake</h4><span>Cupcakes</span></div></div>
+    </div>
+
+    <!-- Item 12 -->
+    <div class="g-item reveal d3">
+      <div class="g-thumb h-sq">
+        <img src="Photos/French Baguette.jpg" alt="French Baguette">
+      </div>
+      <div class="g-overlay"><div><h4>French Baguette</h4><span>Artisan Breads</span></div></div>
+    </div>
+
+    <!-- Item 13 -->
+    <div class="g-item reveal">
+      <div class="g-thumb h-l">
+        <img src="Photos/graduation cake.jpg" alt="Graduation Cake">
+      </div>
+      <div class="g-overlay"><div><h4>Graduation Cake</h4><span>Celebration Cakes</span></div></div>
+    </div>
+
+    <!-- Item 14 -->
+    <div class="g-item reveal d1">
+      <div class="g-thumb h-p">
+        <img src="Photos/Wholewheat Loaf.jpg" alt="Wholewheat Loaf">
+      </div>
+      <div class="g-overlay"><div><h4>Wholewheat Loaf</h4><span>Artisan Breads</span></div></div>
+    </div>
+
+    <!-- Item 15 -->
+    <div class="g-item reveal d2">
+      <div class="g-thumb h-sq">
+        <img src="Photos/Lemon Meringue Tart.jpg" alt="Lemon Meringue Tart">
+      </div>
+      <div class="g-overlay"><div><h4>Lemon Meringue Tart</h4><span>Tarts</span></div></div>
+    </div>
+
+    <!-- Item 16 -->
+    <div class="g-item reveal d3">
+      <div class="g-thumb h-pp">
+        <img src="Photos/Westham_Bakery_Blog_Durban_Grows_Sweeter_with_New_Westham_Bakery_Stores_image_2.webp" alt="Bakery Interior">
+      </div>
+      <div class="g-overlay"><div><h4>Bakery Interior</h4><span>Our Space</span></div></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SOCIAL CTA -->
+<section class="section" style="background:var(--brown-dark);text-align:center;">
+  <span class="eyebrow reveal" style="color:var(--gold);">Share Your Experience</span>
+  <h2 class="reveal d1" style="color:var(--gold-light);">Tag Us on Social Media</h2>
+  <div class="divider" style="margin:1.2rem auto;"></div>
+  <p class="reveal d2" style="color:var(--muted);max-width:480px;margin:0 auto 2rem;line-height:1.9;">Enjoyed your visit? Share your photos — we love seeing our creations in happy hands!</p>
+  <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;" class="reveal d3">
+    <a href="https://instagram.com  " target="_blank" rel="noopener" class="btn btn-gold">◎ Instagram</a>
+    <a href="https://facebook.com  " target="_blank" rel="noopener" class="btn btn-outline">f Facebook</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <h3>Westham Bakery</h3>
+      <p>Serving Sydenham &amp; the greater Durban community with freshly baked goods, custom cakes, and heartfelt service — 24 hours a day, every day.</p>
+      <div class="social-links">
+        <a href="https://facebook.com  " target="_blank" rel="noopener" title="Facebook">f</a>
+        <a href="https://instagram.com  " target="_blank" rel="noopener" title="Instagram">◎</a>
+        <a href="https://twitter.com  " target="_blank" rel="noopener" title="X/Twitter">✕</a>
+        <a href="https://wa.me/27310019905  " target="_blank" rel="noopener" title="WhatsApp">◈</a>
+      </div>
+    </div>
+    <div class="footer-col"><h4>Navigate</h4><ul>
+      <li><a href="index.html">Home</a></li><li><a href="about.html">About Us</a></li>
+      <li><a href="products.html">Products</a></li><li><a href="gallery.html">Gallery</a></li>
+      <li><a href="team.html">Our Team</a></li><li><a href="contact.html">Contact</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Products</h4><ul>
+      <li><a href="products.html">Celebration Cakes</a></li><li><a href="products.html">Artisan Breads</a></li>
+      <li><a href="products.html">Pies &amp; Pastries</a></li><li><a href="products.html">Cupcakes &amp; Muffins</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Contact</h4><ul>
+      <li><a href="tel:+27310019905">031 001 9905</a></li>
+      <li><a href="https://westhambakery.com  " target="_blank" rel="noopener">westhambakery.com</a></li>
+      <li><a href="https://maps.google.com/?q=Westham+Bakery+Sydenham  " target="_blank" rel="noopener">Get Directions</a></li>
+      <li><a href="https://wa.me/27310019905  " target="_blank" rel="noopener">WhatsApp Us</a></li>
+    </ul></div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Westham Bakery, Sydenham. All rights reserved.</span>
+    <span>588 Randles Road, Sydenham Berea, Durban 4091</span>
+  </div>
+</footer>
+
+<script>
+  const nav = document.getElementById('mainNav');
+  window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60));
+  const toggle = document.getElementById('navToggle');
+  const links = document.getElementById('navLinks');
+  toggle.addEventListener('click', () => { toggle.classList.toggle('open'); links.classList.toggle('open'); });
+  const reveals = document.querySelectorAll('.reveal,.reveal-left,.reveal-right');
+  const obs = new IntersectionObserver(e => e.forEach(x => x.isIntersecting && x.target.classList.add('visible')), { threshold: 0.08 });
+  reveals.forEach(r => obs.observe(r));
+</script>
+</body>
+</html>
